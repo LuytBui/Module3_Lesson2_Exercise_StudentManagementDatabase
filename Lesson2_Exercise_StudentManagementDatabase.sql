@@ -1,0 +1,32 @@
+CREATE DATABASE quanlysinhvien;
+USE quanlysinhvien;
+CREATE TABLE class(
+classID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+className VARCHAR(60),
+startDate DATETIME,
+status BIT DEFAULT 1
+);
+CREATE TABLE student(
+studentID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+studentName VARCHAR(50),
+address VARCHAR(50),
+phone VARCHAR(10),
+status BIT DEFAULT 1,
+classID INT NOT NULL,
+FOREIGN KEY(classID) REFERENCES class(classID)
+);
+CREATE TABLE subject(
+subjectID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+subjectName VARCHAR(30),
+credit TINYINT DEFAULT 1 CHECK (credit >=1),
+status BIT DEFAULT 1
+);
+CREATE TABLE mark(
+markID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+subjectID INT,
+studentID INT,
+mark FLOAT DEFAULT 0 CHECK (mark >= 0 AND mark <=100),
+examTimes TINYINT DEFAULT 1,
+FOREIGN KEY(subjectID) REFERENCES subject(subjectID),
+FOREIGN KEY(studentID) REFERENCES student(studentID)
+); 
